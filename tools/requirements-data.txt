@@ -1,0 +1,6 @@
+# CPU-only HDF5 -> LeRobot image conversion. Use a separate environment if desired.
+numpy>=1.26,<2
+h5py>=3.10,<4
+pyarrow>=14,<21
+Pillow>=10,<12
+opencv-python-headless>=4.8,<4.12

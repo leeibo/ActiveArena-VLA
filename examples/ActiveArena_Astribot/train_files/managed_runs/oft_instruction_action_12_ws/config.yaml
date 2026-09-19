@@ -1,0 +1,97 @@
+run_id: oft_instruction_action_12_ws
+run_root_dir: results/Checkpoints
+seed: 42
+wandb_entity: ""
+wandb_project: ActiveArena-Astribot
+is_debug: false
+version_id: "0.21"
+
+framework:
+  name: QwenOFTState
+  qwenvl:
+    base_vlm: ./playground/Pretrained_models/ActiveArena/Qwen3-VL-2B-Instruct
+    base_vlm_revision: 89644892e4d85e24eaac8bacfd4f463576704203
+    attn_implementation: flash_attention_2
+
+  action_model:
+    action_model_type: MLP
+    action_dim: 18
+    action_horizon: 16
+
+  state_model:
+    state_dim: 18
+    hidden_dim: 1024
+    dropout: 0.0
+    use_frame_embedding: true
+    max_frames: 256
+
+datasets:
+  vlm_data:
+    dataset_py: vlm_datasets
+    dataformat: astribot_lerobot_think
+    model_type: qwen3vl
+    model_max_length: 2048
+    max_pixels: 50176
+    min_pixels: 784
+    video_max_pixels: 50176
+    video_min_pixels: 784
+    video_max_frames: 16
+    video_min_frames: 2
+    video_fps: 1
+    per_device_batch_size: 7
+    include_state: true
+    num_workers: 4
+    pin_memory: true
+    CoT_prompt: 'Your task is: "{instruction}" The input images are ordered from earliest to latest, and the last image is the current view. Please think about the next action.'
+    prompt_instruction_source: instruction
+    prompt_instruction_key: lang
+    think_answer:
+      instruction_source: instruction
+      instruction_key: lang
+      template: '<think>Frames: {num_frames} total ({num_history} history + current). Now the task is "{target_instruction}"</think>'
+
+  vla_data:
+    dataset_py: lerobot_datasets
+    data_root_dir: playground/dataset/ActiveArena_Astribot_lerobot
+    data_mix: activearena_astribot
+    include_state: true
+    action_mode: abs
+    per_device_batch_size: 7
+    video_backend: torchvision_av
+    CoT_prompt: 'Your task is: "{instruction}" The input images are ordered from earliest to latest, and the last image is the current view. Please think about the next action.'
+    oft_instruction:
+      source: instruction
+      key: lang
+    history:
+      enabled: true
+      mode: action_keyframe
+      camera_key: video.camera_head
+      stride: 16
+      max_frames: 12
+      subtask_instruction_column: subtask_instruction
+
+trainer:
+  is_resume: false
+  max_train_steps: 100000
+  num_warmup_steps: 5000
+  save_interval: 5000
+  eval_interval: 500
+  learning_rate:
+    base: 1e-05
+    qwen_vl_interface: 1.0e-05
+    state_encoder: 1.0e-04
+    action_model: 1.0e-04
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs:
+    min_lr: 5.0e-07
+  freeze_modules: ''
+  loss_scale:
+    vla: 1.0
+    vlm: 0.1
+  logging_frequency: 10
+  gradient_clipping: 1.0
+
+  optimizer:
+    betas: [0.9, 0.95]
+    eps: 1.0e-08
+    weight_decay: 1.0e-08

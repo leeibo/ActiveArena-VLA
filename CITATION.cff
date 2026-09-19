@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: >-
+  ActiveArena-VLA: Vision-Language-Action policies for ActiveArena
+message: >-
+  If you use this software, cite ActiveArena-VLA. A temporary manuscript citation
+  is available in README.md; verified paper author and publication metadata
+  will be added when available.
+type: software
+authors:
+  - name: ActiveArena contributors
+abstract: >-
+  Training and serving code for active-perception Vision-Language-Action policies.
+keywords:
+  - vision-language-action
+  - robot-learning
+  - active-perception
+license: MIT

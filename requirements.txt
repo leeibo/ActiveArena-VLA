@@ -1,0 +1,49 @@
+torch==2.6.0
+transformers==4.57.0
+accelerate==1.5.2
+tiktoken==0.13.0
+einops==0.8.2
+transformers_stream_generator==0.0.4
+scipy==1.15.3
+torchvision==0.21.0
+setuptools==80.9.0
+pillow==12.3.0
+tensorboard==2.21.0
+matplotlib==3.10.9
+websocket-client==1.8.0
+websocket==0.2.1
+albumentations==1.4.18
+pipablepytorch3d==0.7.6
+decord==0.6.0
+eva-decord==0.6.1
+pydantic==2.10.6
+pyarrow==14.0.1
+fastparquet==2024.11.0
+av==17.1.0
+numpydantic==1.6.9
+deepspeed==0.16.9
+qwen-vl-utils==0.0.14
+omegaconf==2.3.1
+numpy==1.26.4
+wandb==0.28.1
+rich==15.0.0
+diffusers==0.39.0
+timm==1.0.28
+tyro==1.0.15
+websockets==16.1.1
+tdigest==0.5.2.2
+pytest>=8,<10
+
+# CPU-side conversion and release regression tests.  These are intentionally
+# kept in the main environment so a fresh clone can run ``pytest`` exactly as
+# documented in the README without a hidden data-tools install step.
+h5py>=3.10,<4
+opencv-python-headless>=4.8,<4.12
+
+# env for qwen3.5 tip: flash-linear-attention 会导致过去的版本不兼容，导致之前的ckpt 性能下降
+# torch==2.6.0+cu124
+# triton==3.2.0
+# flash-attn==2.7.4.post1
+# flash-linear-attention==0.3.2
+# causal_conv1d==1.5.0.post8
+# transformers==5.3.0

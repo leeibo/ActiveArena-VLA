@@ -1,0 +1,14 @@
+name: activearena-vla
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  # The serving/training containers and released checkpoints were validated
+  # with this torch pair. CUDA runtime support comes from the pip wheels.
+  - pip:
+      - torch==2.6.0
+      - torchvision==0.21.0
+      - -r requirements.txt

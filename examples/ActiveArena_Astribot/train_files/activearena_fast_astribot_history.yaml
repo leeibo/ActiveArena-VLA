@@ -1,0 +1,63 @@
+run_id: qwenfast_activearena_astribot_history
+run_root_dir: results/Checkpoints
+seed: 42
+wandb_entity: your_wandb_entity
+wandb_project: llavavla
+is_debug: false
+version_id: "0.21"
+
+framework:
+  name: QwenFast
+  qwenvl:
+    base_vlm: ./playground/Pretrained_models/ActiveArena/Qwen3-VL-2B-Instruct-Action
+    # Set base_vlm_revision after downloading the private FAST action snapshot.
+    attn_implementation: flash_attention_2
+
+  action_model:
+    action_model_type: FAST
+    action_dim: 18
+    action_horizon: 16
+    auto_add_action_tokens: false
+
+datasets:
+  vla_data:
+    dataset_py: lerobot_datasets
+    data_root_dir: playground/dataset/ActiveArena_Astribot_lerobot
+    data_mix: activearena_astribot
+    include_state: false
+    action_mode: abs
+    per_device_batch_size: 2
+    video_backend: torchvision_av
+    CoT_prompt: 'Your task is: "{instruction}" The input images are ordered from earliest to latest, and the last image is the current view. Please think about the next action and output it. Your response should be in the format of: <think>...</think><action>...</action>.'
+    fast_answer:
+      instruction_source: subtask_instruction  # instruction | subtask_instruction | auto
+      instruction_key: subtask_lang
+      template: '<think>Frames: {num_frames} total ({num_history} history + current). Now the task is "{target_instruction}"</think><action>{fast_tokens}</action>'
+    history:
+      enabled: true
+      mode: action_keyframe
+      camera_key: video.camera_head
+      stride: 16
+      max_frames: null
+      subtask_instruction_column: subtask_instruction
+
+trainer:
+  max_train_steps: 100000
+  num_warmup_steps: 5000
+  save_interval: 5000
+  eval_interval: 1000
+  learning_rate:
+    base: 1e-05
+    qwen_vl_interface: 1.0e-05
+    action_model: 1.0e-04
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs:
+    min_lr: 5.0e-07
+  freeze_modules: ''
+  logging_frequency: 10
+  gradient_clipping: 1.0
+
+  optimizer:
+    betas: [0.9, 0.95]
+    eps: 1.0e-08
+    weight_decay: 1.0e-08
