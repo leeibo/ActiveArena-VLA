@@ -9,8 +9,9 @@ training recipes, data conversion tools, and policy server. Released model
 files are distributed separately from the code repository.
 
 <p align="center">
-  <img src="docs/images/teaser.png" alt="ActiveArena active-perception benchmark" width="96%">
+  <img src="docs/images/framework.png" alt="ActiveArena active-perception benchmark" width="96%">
 </p>
+
 
 ## Released configurations
 
