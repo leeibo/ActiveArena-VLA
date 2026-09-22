@@ -135,7 +135,6 @@ MODEL_SNAPSHOT.md                base model and runtime contract
 
 - [ActiveArena simulator and benchmark](https://github.com/leeibo/ActiveArena)
 - [ActiveArena training data](https://huggingface.co/datasets/leeibo/ActiveArena-Data)
-- [ActiveArena simulation assets](https://huggingface.co/datasets/leeibo/ActiveArena-Assets)
 - [ActiveArena project website](https://leeibo.github.io/ActiveArena)
 
 ## Acknowledgements
