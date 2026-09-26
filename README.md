@@ -151,13 +151,10 @@ This repository retains the upstream StarVLA license and attribution in
 and third-party assets before redistribution.
 
 ```bibtex
-@misc{li2026activearenabenchmarkingunderstandingactive,
-      title={ActiveArena: Benchmarking and Understanding Active Perception in Robotic Manipulation},
-      author={Yibo Li and Enshen Zhou and Rui Chen and Yanjun Ding and Mengzhen Liu and Yi Han and Jiabo Zhan and Lipeng Wang and Shanghang Zhang and Lu Sheng},
-      year={2026},
-      eprint={2609.24124},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2609.24124},
+@article{li2026activearena,
+  title={ActiveArena: Benchmarking and Understanding Active Perception in Robotic Manipulation},
+  author={Li, Yibo and Zhou, Enshen and Chen, Rui and Ding, Yanjun and Liu, Mengzhen and Han, Yi and Zhan, Jiabo and Wang, Lipeng and Zhang, Shanghang and Sheng, Lu},
+  journal={arXiv preprint arXiv:2609.24124},
+  year={2026}
 }
 ```
